@@ -7,7 +7,7 @@ namespace App\ArmorType;
 use App\ArmorType\IArmorType;
 use App\Dice;
 
-class ShieldType implements IArmorType
+class LightArmor implements IArmorType
 {
     public function getArmorReduction(): int
     {

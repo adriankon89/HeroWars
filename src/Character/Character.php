@@ -16,8 +16,6 @@ class Character
     public int $baseArmor = 1;
     public array $specialAttacks = [];
     public array $specialArmors = [];
-    private int $level = 1;
-    private int $xp = 0;
     private string $name;
 
     //Armor w procentach attack - armor

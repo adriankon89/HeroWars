@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Builder;
 
 use App\ArmorType\IArmorType;
-use App\ArmorType\ShieldType;
+use App\ArmorType\LightArmor;
 use App\Character\Character;
 use App\SpecialAttacks\FireAttack;
 use App\SpecialAttacks\Attack;
@@ -93,7 +93,7 @@ class CharacterBuilder
     private function createSpecialArmor(): IArmorType
     {
         return match ($this->armorType) {
-            'shield' => new ShieldType(),
+            'lightArmor' => new LightArmor(),
             default => throw new \RuntimeException('Invalid attack type given')
         };
     }
