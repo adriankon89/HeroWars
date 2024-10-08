@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Character;
 
+use App\Dice;
+
 class Character
 {
     private const SPECIAL_ATTACK_CHANCE_RATE = 70;
@@ -11,7 +13,7 @@ class Character
 
     public int $health = 0;
     public int $damage = 0;
-    public int $baseArmor;
+    public int $baseArmor = 1;
     public array $specialAttacks = [];
     public array $specialArmors = [];
     private int $level = 1;
@@ -54,7 +56,7 @@ class Character
 
     public function blockAttack(): bool
     {
-        $chanceToBlock = floor(self::FULL_BLOCK_VALUE / ($this->baseArmor ?: 1));
+        $chanceToBlock = (int) floor(self::FULL_BLOCK_VALUE / $this->baseArmor);
         return rand(1, $chanceToBlock) === rand(1, $chanceToBlock);
     }
 
@@ -71,28 +73,22 @@ class Character
 
     public function makeDamage(int $attackValue): int
     {
+        $percentArmorReduction = $this->calculateArmorReduction() / self::FULL_BLOCK_VALUE;
+        $attackValue = (int) floor($attackValue * $percentArmorReduction);
+        $this->health -= $attackValue;
+
+        return $attackValue;
+    }
+
+    private function calculateArmorReduction(): int
+    {
         $specialArmorReduction = 0;
         if ($this->specialArmors) {
             $specialArmor = $this->specialArmors[array_rand($this->specialArmors)];
             $specialArmorReduction =  $specialArmor->getArmorReduction();
         }
 
-        $armor = $this->baseArmor + $specialArmorReduction;
-        $attackValue = floor($attackValue * ($armor / self::FULL_BLOCK_VALUE));
-        $this->health -= $attackValue;
-
-        return $attackValue;
-    }
-
-    public function getLevel(): int
-    {
-        return $this->level;
-    }
-
-    public function addXp(int $xpEarned): int
-    {
-        $this->xp += $xpEarned;
-        return $this->xp;
+        return (int) $this->baseArmor + $specialArmorReduction;
     }
 
     public function __toString()
