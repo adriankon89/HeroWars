@@ -28,7 +28,7 @@ class CharacterBuilderFactory
                         ->setDamage(5)
                         ->setArmor(1)
                         ->setAttackType('fire')
-                        ->setArmorType('shield')
+                        ->setArmorType('lightArmor')
                         ->setName($playerName)
                         ->buildCharacter(),
             'knight' => $this->createBuilder()
@@ -36,7 +36,7 @@ class CharacterBuilderFactory
                         ->setDamage(5)
                         ->setArmor(1)
                         ->setAttackType('fire')
-                        ->setArmorType('shield')
+                        ->setArmorType('mediumArmor')
                         ->setName($playerName)
                         ->buildCharacter(),
             'goblin' => $this->createBuilder()
@@ -45,7 +45,7 @@ class CharacterBuilderFactory
                         ->setArmor(1)
                         ->setName($playerName)
                         ->setAttackType('fire')
-                        ->setArmorType('shield')
+                        ->setArmorType('lightArmor')
                         ->buildCharacter(),
             default => throw new RuntimeException('Undefined character')
         };

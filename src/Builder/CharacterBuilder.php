@@ -6,6 +6,7 @@ namespace App\Builder;
 
 use App\ArmorType\IArmorType;
 use App\ArmorType\LightArmor;
+use App\ArmorType\MediumArmor;
 use App\Character\Character;
 use App\SpecialAttacks\FireAttack;
 use App\SpecialAttacks\Attack;
@@ -94,9 +95,8 @@ class CharacterBuilder
     {
         return match ($this->armorType) {
             'lightArmor' => new LightArmor(),
-            default => throw new \RuntimeException('Invalid attack type given')
+            'mediumArmor' => new MediumArmor(),
+            default => throw new \RuntimeException('Invalid armor type given')
         };
     }
-
-
 }
