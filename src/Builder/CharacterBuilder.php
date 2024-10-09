@@ -17,7 +17,7 @@ use Psr\Log\LoggerInterface;
 class CharacterBuilder implements CharacterBuilderInterface
 {
     private int $maxHealth;
-    private int $armor;
+    private int $armorRating;
     private int $damage;
     private array $attackTypes;
     private string $armorType;
@@ -39,9 +39,9 @@ class CharacterBuilder implements CharacterBuilderInterface
         return $this;
     }
 
-    public function setArmor(int $armor): self
+    public function setArmor(int $armorRating): self
     {
-        $this->armor = $armor;
+        $this->armorRating = $armorRating;
         return $this;
     }
 
@@ -74,7 +74,7 @@ class CharacterBuilder implements CharacterBuilderInterface
         return new Character(
             $this->maxHealth,
             $this->damage,
-            $this->armor,
+            $this->armorRating,
             $attackTypes,
             [$this->createSpecialArmor()],
             $this->name

@@ -13,20 +13,20 @@ class Character
 
     public int $health = 0;
     public int $damage = 0;
-    public int $baseArmor = 1;
+    public int $armorRating = 1;
     public array $specialAttacks = [];
     public array $specialArmors = [];
     private string $name;
 
     //Armor w procentach attack - armor
-    //baseArmor blockattack
+    //armorRating blockattack
 
     //był jakis wzorzec z zzaduzą ilością argumentów
-    public function __construct(int $health, int $damage, int $baseArmor, array $specialAttacks, array $specialArmors, string $name)
+    public function __construct(int $health, int $damage, int $armorRating, array $specialAttacks, array $specialArmors, string $name)
     {
         $this->health = $health;
         $this->damage = $damage;
-        $this->baseArmor = $baseArmor;
+        $this->armorRating = $armorRating;
         $this->specialAttacks = $specialAttacks;
         $this->specialArmors = $specialArmors;
         $this->name = $name;
@@ -54,7 +54,7 @@ class Character
 
     public function blockAttack(): bool
     {
-        $chanceToBlock = (int) floor(self::FULL_BLOCK_VALUE / $this->baseArmor);
+        $chanceToBlock = (int) floor(self::FULL_BLOCK_VALUE / $this->armorRating);
         return rand(1, $chanceToBlock) === rand(1, $chanceToBlock);
     }
 
@@ -86,7 +86,7 @@ class Character
             $specialArmorReduction =  $specialArmor->getArmorReduction();
         }
 
-        return (int) $this->baseArmor + $specialArmorReduction;
+        return (int) $this->armorRating + $specialArmorReduction;
     }
 
     public function __toString()
