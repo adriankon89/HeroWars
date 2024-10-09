@@ -6,7 +6,7 @@ namespace App\Character;
 
 use App\Dice;
 
-class Character
+class Hero
 {
     private const SPECIAL_ATTACK_CHANCE_RATE = 70;
     private const FULL_BLOCK_VALUE = 100;

@@ -7,11 +7,8 @@ namespace App\Builder;
 use App\ArmorType\IArmorType;
 use App\ArmorType\LightArmor;
 use App\ArmorType\MediumArmor;
-use App\Character\Character;
-use App\SpecialAttacks\FireAttack;
+use App\Character\Hero;
 use App\SpecialAttacks\Attack;
-use App\SpecialAttacks\IceAttack;
-use App\SpecialAttacks\PoisonAttack;
 use Psr\Log\LoggerInterface;
 
 class CharacterBuilder implements CharacterBuilderInterface
@@ -67,14 +64,14 @@ class CharacterBuilder implements CharacterBuilderInterface
         return $this;
     }
 
-    public function build(): Character
+    public function build(): Hero
     {
         $this->logger->info('Creating a character!', [
             'maxHealth' => $this->maxHealth,
             'baseDamage' => $this->damage,
         ]);
 
-        return new Character(
+        return new Hero(
             $this->maxHealth,
             $this->damage,
             $this->armorRating,

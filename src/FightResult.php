@@ -4,33 +4,33 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Character\Character;
+use App\Character\Hero;
 
 class FightResult
 {
-    private Character $winner;
-    private Character $loser;
+    private Hero $winner;
+    private Hero $loser;
     private int $rounds = 0;
     private int $damageDealt = 0;
     private int $damageReceived = 0;
     private int $exhaustedTurns = 0;
 
-    public function getWinner(): Character
+    public function getWinner(): Hero
     {
         return $this->winner;
     }
 
-    public function setWinner(Character $winner): void
+    public function setWinner(Hero $winner): void
     {
         $this->winner = $winner;
     }
 
-    public function getLoser(): Character
+    public function getLoser(): Hero
     {
         return $this->loser;
     }
 
-    public function setLoser(Character $loser): void
+    public function setLoser(Hero $loser): void
     {
         $this->loser = $loser;
     }

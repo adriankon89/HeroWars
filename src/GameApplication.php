@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Character\Character;
+use App\Builder\CharacterBuilder;
+use App\Character\Hero;
 use App\Builder\CharacterBuilderFactory;
 use App\Observer\GameObserverInterface;
 use App\Enum\CharacterTypes;
@@ -14,8 +15,8 @@ class GameApplication
 {
     private $isPlayerOneTurn = true;
     private array $observers = [];
-    private Character $playerOne;
-    private Character $playerTwo;
+    private Hero $playerOne;
+    private Hero $playerTwo;
 
     public function __construct(
         private OutputInterface $output,
@@ -24,17 +25,17 @@ class GameApplication
     ) {
     }
 
-    public function setPlayerOne(Character $playerOne)
+    public function setPlayerOne(Hero $playerOne)
     {
         $this->playerOne = $playerOne;
     }
 
-    public function setPlayerTwo(Character $playerTwo)
+    public function setPlayerTwo(Hero $playerTwo)
     {
         $this->playerTwo = $playerTwo;
     }
 
-    public function createCharacter(string $characterType, string $playerName): Character
+    public function createCharacter(string $characterType, string $playerName): Hero
     {
         return $this->characterBuilderFactory->createCharacter($characterType, $playerName);
     }
@@ -115,7 +116,7 @@ class GameApplication
 
     }
 
-    public function playTurn(Character $playerOne, Character $playerTwo): void
+    public function playTurn(Hero $playerOne, Hero $playerTwo): void
     {
         if ($this->isPlayerOneTurn) {
             $this->attack($playerOne, $playerTwo);
@@ -130,7 +131,7 @@ class GameApplication
         $this->isPlayerOneTurn = !$this->isPlayerOneTurn;
     }
 
-    public function attack(Character $playerWhoAttack, Character $playerWhoDefense)
+    public function attack(Hero $playerWhoAttack, Hero $playerWhoDefense)
     {
         if (true === $playerWhoDefense->blockAttack()) {
             $this->output->writeln('Attack was blocked 🛡️');
@@ -141,7 +142,7 @@ class GameApplication
         }
     }
 
-    private function finishFightResult(FightResult $fightResult, Character $winner, Character $loser): FightResult
+    private function finishFightResult(FightResult $fightResult, Hero $winner, Hero $loser): FightResult
     {
         $fightResult->setWinner($winner);
         $fightResult->setLoser($loser);

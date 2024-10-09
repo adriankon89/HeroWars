@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Builder;
 
-use App\Character\Character;
+use App\Character\Hero;
 
 interface CharacterBuilderInterface
 {
@@ -14,5 +14,5 @@ interface CharacterBuilderInterface
     public function setArmor(int $armor): self;
     public function setSpecialAttacks(array $attackTypes): self;
     public function setArmorType(string $armorType): self;
-    public function build(): Character;
+    public function build(): Hero;
 }

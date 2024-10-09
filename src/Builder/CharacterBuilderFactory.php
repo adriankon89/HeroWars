@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Builder;
 
 use App\Builder\CharacterBuilder;
-use App\Character\Character;
+use App\Character\Hero;
 use App\SpecialAttacks\FireAttack;
 use App\SpecialAttacks\IceAttack;
 use App\SpecialAttacks\PoisonAttack;
@@ -53,7 +53,7 @@ class CharacterBuilderFactory
             ->setArmorType('lightArmor');
     }
 
-    public function createCharacter(string $characterType, string $playerName): Character
+    public function createCharacter(string $characterType, string $playerName): Hero
     {
         return match (strtolower($characterType)) {
             'archer' => $this->getArcher()->setName($playerName)->build(),
