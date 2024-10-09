@@ -6,6 +6,9 @@ namespace App\Builder;
 
 use App\Builder\CharacterBuilder;
 use App\Character\Character;
+use App\SpecialAttacks\FireAttack;
+use App\SpecialAttacks\IceAttack;
+use App\SpecialAttacks\PoisonAttack;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
 
@@ -26,7 +29,7 @@ class CharacterBuilderFactory
             ->setMaxHealth(100)
             ->setDamage(5)
             ->setArmor(1)
-            ->setAttackType('fire')
+            ->setSpecialAttacks([new FireAttack()])
             ->setArmorType('lightArmor');
     }
 
@@ -36,7 +39,7 @@ class CharacterBuilderFactory
             ->setMaxHealth(120)
             ->setDamage(8)
             ->setArmor(3)
-            ->setAttackType('blunt')
+            ->setSpecialAttacks([new PoisonAttack()])
             ->setArmorType('heavyArmor');
     }
 
@@ -46,7 +49,7 @@ class CharacterBuilderFactory
             ->setMaxHealth(80)
             ->setDamage(6)
             ->setArmor(2)
-            ->setAttackType('slashing')
+            ->setSpecialAttacks([new IceAttack()])
             ->setArmorType('lightArmor');
     }
 

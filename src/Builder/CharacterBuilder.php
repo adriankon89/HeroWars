@@ -19,7 +19,8 @@ class CharacterBuilder implements CharacterBuilderInterface
     private int $maxHealth;
     private int $armorRating;
     private int $damage;
-    private array $attackTypes;
+    /** @var Attack[] $specialAttacks Array of special attacks. */
+    private array $specialAttacks;
     private string $armorType;
     private string $name;
 
@@ -45,9 +46,12 @@ class CharacterBuilder implements CharacterBuilderInterface
         return $this;
     }
 
-    public function setAttackType(string $attackType): self
+    /**
+     * @param Attack[] $attacks
+     */
+    public function setSpecialAttacks(array $attackTypes): self
     {
-        $this->attackTypes[] = $attackType;
+        $this->specialAttacks = $attackTypes;
         return $this;
     }
 
@@ -65,7 +69,6 @@ class CharacterBuilder implements CharacterBuilderInterface
 
     public function build(): Character
     {
-        $attackTypes = array_map(fn (string $attackType) => $this->createAttackType($attackType), $this->attackTypes);
         $this->logger->info('Creating a character!', [
             'maxHealth' => $this->maxHealth,
             'baseDamage' => $this->damage,
@@ -75,20 +78,10 @@ class CharacterBuilder implements CharacterBuilderInterface
             $this->maxHealth,
             $this->damage,
             $this->armorRating,
-            $attackTypes,
+            $this->specialAttacks,
             [$this->createSpecialArmor()],
             $this->name
         );
-    }
-
-    private function createAttackType(string $attackType): Attack
-    {
-        return match ($attackType) {
-            'fire' => new FireAttack(),
-            'ice' => new IceAttack(),
-            'poison' => new PoisonAttack(),
-            default => throw new \RuntimeException('Invalid attack type given')
-        };
     }
 
     private function createSpecialArmor(): IArmorType
