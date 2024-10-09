@@ -14,7 +14,7 @@ use App\SpecialAttacks\IceAttack;
 use App\SpecialAttacks\PoisonAttack;
 use Psr\Log\LoggerInterface;
 
-class CharacterBuilder
+class CharacterBuilder implements CharacterBuilderInterface
 {
     private int $maxHealth;
     private int $armor;
@@ -45,9 +45,9 @@ class CharacterBuilder
         return $this;
     }
 
-    public function setAttackType(string ...$attackTypes): self
+    public function setAttackType(string $attackType): self
     {
-        $this->attackTypes = $attackTypes;
+        $this->attackTypes[] = $attackType;
         return $this;
     }
 
@@ -63,7 +63,7 @@ class CharacterBuilder
         return $this;
     }
 
-    public function buildCharacter(): Character
+    public function build(): Character
     {
         $attackTypes = array_map(fn (string $attackType) => $this->createAttackType($attackType), $this->attackTypes);
         $this->logger->info('Creating a character!', [

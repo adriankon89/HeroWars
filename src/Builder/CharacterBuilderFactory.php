@@ -20,34 +20,43 @@ class CharacterBuilderFactory
         return new CharacterBuilder($this->logger);
     }
 
+    public function getArcher(): CharacterBuilder
+    {
+        return $this->createBuilder()
+            ->setMaxHealth(100)
+            ->setDamage(5)
+            ->setArmor(1)
+            ->setAttackType('fire')
+            ->setArmorType('lightArmor');
+    }
+
+    public function getKnight(): CharacterBuilder
+    {
+        return $this->createBuilder()
+            ->setMaxHealth(120)
+            ->setDamage(8)
+            ->setArmor(3)
+            ->setAttackType('blunt')
+            ->setArmorType('heavyArmor');
+    }
+
+    public function getGoblin(): CharacterBuilder
+    {
+        return $this->createBuilder()
+            ->setMaxHealth(80)
+            ->setDamage(6)
+            ->setArmor(2)
+            ->setAttackType('slashing')
+            ->setArmorType('lightArmor');
+    }
+
     public function createCharacter(string $characterType, string $playerName): Character
     {
-        return match(strtolower($characterType)) {
-            'archer' => $this->createBuilder()
-                        ->setMaxHealth(100)
-                        ->setDamage(5)
-                        ->setArmor(1)
-                        ->setAttackType('fire')
-                        ->setArmorType('lightArmor')
-                        ->setName($playerName)
-                        ->buildCharacter(),
-            'knight' => $this->createBuilder()
-                        ->setMaxHealth(100)
-                        ->setDamage(5)
-                        ->setArmor(1)
-                        ->setAttackType('fire')
-                        ->setArmorType('mediumArmor')
-                        ->setName($playerName)
-                        ->buildCharacter(),
-            'goblin' => $this->createBuilder()
-                        ->setMaxHealth(100)
-                        ->setDamage(5)
-                        ->setArmor(1)
-                        ->setName($playerName)
-                        ->setAttackType('fire')
-                        ->setArmorType('lightArmor')
-                        ->buildCharacter(),
-            default => throw new RuntimeException('Undefined character')
+        return match (strtolower($characterType)) {
+            'archer' => $this->getArcher()->setName($playerName)->build(),
+            'knight' => $this->getKnight()->setName($playerName)->build(),
+            'goblin' => $this->getGoblin()->setName($playerName)->build(),
+            default => throw new RuntimeException('Undefined character'),
         };
     }
 }
